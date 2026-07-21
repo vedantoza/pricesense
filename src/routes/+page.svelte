@@ -1,5 +1,7 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import { goto } from '$app/navigation';
+  import { supabase } from '$lib/supabase';
   import { onMount } from 'svelte';
   import {
     confidenceLabel,
@@ -104,6 +106,11 @@
     activeSection = 'forecast';
   }
 
+  async function logout(): Promise<void> {
+    await supabase.auth.signOut();
+    await goto('/login/');
+  }
+
   function scenarioMetrics(scenario: Scenario) {
     const price = Math.max(0, scenario.listPrice * (1 - scenario.discount / 100));
     const units = predictUnits(scenario.productType, price);
@@ -129,6 +136,9 @@
       Scenarios <span class="count">{scenarios.length}</span>
     </button>
   </nav>
+  <button class="logout-button" onclick={logout}>
+    Sign out
+  </button>
   <span class="status"><span></span> Live model</span>
 </header>
 
@@ -376,7 +386,23 @@
   nav button:hover, nav button.active { color: white; background: rgba(255,255,255,.08); }
   nav button.active::after { content: ''; position: absolute; height: 3px; left: 18px; right: 18px; bottom: 0; background: #FF8D21; border-radius: 3px 3px 0 0; }
   .count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 4px; border-radius: 20px; background: rgba(255,255,255,.15); font-size: .72rem; }
-  .status { margin-left: auto; font-size: .82rem; display: flex; align-items: center; gap: 8px; color: #e9e9ff; }
+  .logout-button {
+    margin-left: auto;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 8px 13px;
+    font-size: 0.78rem;
+    font-weight: 750;
+  }
+
+  .logout-button:hover {
+    background: #ff8d21;
+    border-color: #ff8d21;
+  }
+
+  .status { margin-left: 0; font-size: .82rem; display: flex; align-items: center; gap: 8px; color: #e9e9ff; }
   .status span { width: 8px; height: 8px; border-radius: 50%; background: #45e39b; box-shadow: 0 0 0 5px rgba(69,227,155,.15); }
 
   main { width: min(1440px, 92vw); margin: 0 auto; padding: 34px 0 48px; }
@@ -484,7 +510,23 @@
     .topbar { height: auto; min-height: 66px; padding: 12px 4vw; flex-wrap: wrap; gap: 8px 18px; }
     nav { order: 3; width: 100%; height: 42px; overflow-x: auto; }
     nav button { flex: 1; padding: 0 10px; white-space: nowrap; }
-    .status { margin-left: auto; }
+    .logout-button {
+    margin-left: auto;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 8px 13px;
+    font-size: 0.78rem;
+    font-weight: 750;
+  }
+
+  .logout-button:hover {
+    background: #ff8d21;
+    border-color: #ff8d21;
+  }
+
+  .status { margin-left: 0; }
     main { width: 94vw; padding-top: 24px; }
     .hero { grid-template-columns: 1fr; }
     .form-grid, .kpi-grid { grid-template-columns: 1fr; }
