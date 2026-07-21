@@ -360,7 +360,6 @@
   nav button.active::after { content: ''; position: absolute; height: 3px; left: 18px; right: 18px; bottom: 0; background: #FF8D21; border-radius: 3px 3px 0 0; }
   .count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 4px; border-radius: 20px; background: rgba(255,255,255,.15); font-size: .72rem; }
 
-
   .analysis-model-selector > span {
     margin: 0;
     color: #dedeff;
@@ -426,16 +425,7 @@
     margin: 8px 0 0;
     color: #696778;
   }
-
-  .hero { display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: end; margin-bottom: 28px; }
-  .eyebrow { color: #FF8D21; font-size: .72rem; font-weight: 850; letter-spacing: .14em; }
   h1 { margin: 8px 0 10px; max-width: 760px; font-size: clamp(2rem, 4vw, 3.65rem); line-height: 1.04; letter-spacing: -.045em; }
-  .hero p { max-width: 850px; margin: 0; color: #666577; line-height: 1.65; font-size: 1rem; }
-  .hero-stat { width: 245px; padding: 19px 21px; border-radius: 18px; background: linear-gradient(145deg, #000080, #FF8D21); color: white; box-shadow: 0 18px 45px rgba(0,0,80,.18); }
-  .hero-stat span, .hero-stat small { display: block; color: #FFF0DD; }
-  .hero-stat span { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; }
-  .hero-stat strong { display: block; margin: 8px 0 4px; font-size: 1.45rem; }
-  .hero-stat small { font-size: .78rem; }
 
   .workspace { display: grid; grid-template-columns: .92fr 1.08fr; gap: 22px; }
   .panel { background: rgba(255,255,255,.94); border: 1px solid #e8e7ef; border-radius: 22px; box-shadow: 0 10px 35px rgba(37,31,61,.06); overflow: hidden; }
@@ -494,11 +484,6 @@
   .line { fill: none; stroke: #000080; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
   .marker-line { stroke: #FF8D21; stroke-width: 1.5; stroke-dasharray: 4 4; }
   .marker { fill: #FF8D21; stroke: white; stroke-width: 4; }
-  .chart-insight { padding: 20px; border-radius: 16px; background: #08085e; color: white; }
-  .chart-insight span { color: #D6D6FF; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
-  .chart-insight strong { display: block; margin: 9px 0; font-size: 1.15rem; }
-  .chart-insight p { color: #F0F0FF; font-size: .79rem; line-height: 1.55; }
-  .chart-insight small { display: block; margin-top: 18px; color: #C7C7E8; font-size: .68rem; }
 
   .full-panel { min-height: 500px; }
   .table-wrap { overflow-x: auto; }
@@ -508,10 +493,6 @@
   td strong { color: #1f1c2a; }
   td small { display: block; margin-top: 4px; color: #8a8695; }
   tr:hover td { background: #fcfbff; }
-  .r2 { font-weight: 850; color: #000080; }
-  .method-note { margin-top: 20px; padding: 18px; border-left: 4px solid #FF8D21; background: #FFF8EF; border-radius: 4px 13px 13px 4px; }
-  .method-note strong { color: #C65F00; }
-  .method-note p { margin: 6px 0 0; color: #625c69; font-size: .82rem; line-height: 1.55; }
   .actions { white-space: nowrap; }
   .actions button { border: 0; padding: 6px 9px; border-radius: 7px; background: #EAF0FF; color: #000080; font-size: .72rem; font-weight: 700; }
   .actions .danger { margin-left: 6px; background: #fff0ee; color: #ad3024; }
@@ -520,12 +501,8 @@
   .empty-state h3 { margin: 12px 0 5px; color: #262331; }
   .empty-state p { margin: 0 0 18px; }
 
-  footer { width: min(1440px, 92vw); margin: 0 auto; padding: 22px 0 32px; display: flex; justify-content: space-between; color: #888493; font-size: .72rem; }
-
   @media (max-width: 980px) {
     .workspace, .chart-layout { grid-template-columns: 1fr; }
-    .hero-stat { display: none; }
-    .chart-insight { width: 100%; }
   }
   @media (max-width: 700px) {
     .analysis-model-selector {
@@ -559,12 +536,10 @@
 
   .status { margin-left: 0; }
     main { width: 94vw; padding-top: 24px; }
-    .hero { grid-template-columns: 1fr; }
     .form-grid, .kpi-grid { grid-template-columns: 1fr; }
     .formula-box, .panel-heading { align-items: flex-start; }
     .formula-box { flex-direction: column; }
     .controls-panel, .result-panel, .chart-panel, .full-panel { padding: 18px; }
-    footer { width: 94vw; flex-direction: column; gap: 6px; }
   }
 
   .analysis-model-selector {
