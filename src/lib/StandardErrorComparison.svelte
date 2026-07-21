@@ -28,6 +28,9 @@
   let smallVariation = 5;
   let largeVariation = 22;
 
+  let hoveredSmall: Observation | null = null;
+  let hoveredLarge: Observation | null = null;
+
   function createData(variation: number): Array<{ x: number; y: number }> {
     return xValues.map((x, index) => ({
       x,
@@ -105,6 +108,21 @@
   $: minimumY = Math.min(...allValues) - 10;
   $: maximumY = Math.max(...allValues) + 10;
 
+  const xAxisTicks = [1, 3, 5, 7, 9, 11];
+
+  $: yAxisTicks = Array.from(
+    { length: 5 },
+    (_, index) =>
+      minimumY +
+      ((maximumY - minimumY) * index) / 4
+  );
+
+  function formatValue(value: number): string {
+    return new Intl.NumberFormat('en-CA', {
+      maximumFractionDigits: 3
+    }).format(value);
+  }
+
   function scaleX(x: number): number {
     return padding + ((x - 1) / 11) * (width - padding * 2);
   }
@@ -179,6 +197,7 @@
         </span>
       </div>
 
+      <div class="chart-shell">
       <svg viewBox={`0 0 ${width} ${height}`}>
         <line
           x1={padding}
@@ -195,6 +214,44 @@
           y2={height - padding}
           class="axis"
         />
+
+        {#each yAxisTicks as tick}
+          <line
+            x1={padding}
+            y1={scaleY(tick)}
+            x2={width - padding}
+            y2={scaleY(tick)}
+            class="grid-line"
+          />
+
+          <text
+            x={padding - 9}
+            y={scaleY(tick) + 4}
+            text-anchor="end"
+            class="tick-label"
+          >
+            {formatValue(tick)}
+          </text>
+        {/each}
+
+        {#each xAxisTicks as tick}
+          <line
+            x1={scaleX(tick)}
+            y1={padding}
+            x2={scaleX(tick)}
+            y2={height - padding}
+            class="grid-line"
+          />
+
+          <text
+            x={scaleX(tick)}
+            y={height - padding + 22}
+            text-anchor="middle"
+            class="tick-label"
+          >
+            {tick}
+          </text>
+        {/each}
 
         <line
           x1={scaleX(1)}
@@ -220,21 +277,45 @@
           <circle
             cx={scaleX(point.x)}
             cy={scaleY(point.y)}
-            r="8"
+            r={hoveredSmall === point ? 11 : 8}
             class="point"
-          >
-            <title>
-              x: {point.x}
-              y: {point.y.toFixed(2)}
-              predicted: {point.predicted.toFixed(2)}
-              residual: {point.residual.toFixed(2)}
-            </title>
-          </circle>
+            role="img"
+            aria-label={`x ${formatValue(point.x)}, observed y ${formatValue(point.y)}, predicted y ${formatValue(point.predicted)}, residual ${formatValue(point.residual)}`}
+            onpointerenter={() => (hoveredSmall = point)}
+            onpointerleave={() => (hoveredSmall = null)}
+          />
         {/each}
 
         <text x={width - 35} y={height - 45} class="axis-label">x</text>
         <text x="30" y="45" class="axis-label">y</text>
       </svg>
+
+      {#if hoveredSmall}
+        <div class="value-tooltip">
+          <strong>Observation values</strong>
+
+          <div>
+            <span>x</span>
+            <b>{formatValue(hoveredSmall.x)}</b>
+          </div>
+
+          <div>
+            <span>Observed y</span>
+            <b>{formatValue(hoveredSmall.y)}</b>
+          </div>
+
+          <div>
+            <span>Predicted y</span>
+            <b>{formatValue(hoveredSmall.predicted)}</b>
+          </div>
+
+          <div>
+            <span>Residual</span>
+            <b>{formatValue(hoveredSmall.residual)}</b>
+          </div>
+        </div>
+      {/if}
+      </div>
     </article>
 
     <article>
@@ -257,6 +338,7 @@
         </span>
       </div>
 
+      <div class="chart-shell">
       <svg viewBox={`0 0 ${width} ${height}`}>
         <line
           x1={padding}
@@ -273,6 +355,44 @@
           y2={height - padding}
           class="axis"
         />
+
+        {#each yAxisTicks as tick}
+          <line
+            x1={padding}
+            y1={scaleY(tick)}
+            x2={width - padding}
+            y2={scaleY(tick)}
+            class="grid-line"
+          />
+
+          <text
+            x={padding - 9}
+            y={scaleY(tick) + 4}
+            text-anchor="end"
+            class="tick-label"
+          >
+            {formatValue(tick)}
+          </text>
+        {/each}
+
+        {#each xAxisTicks as tick}
+          <line
+            x1={scaleX(tick)}
+            y1={padding}
+            x2={scaleX(tick)}
+            y2={height - padding}
+            class="grid-line"
+          />
+
+          <text
+            x={scaleX(tick)}
+            y={height - padding + 22}
+            text-anchor="middle"
+            class="tick-label"
+          >
+            {tick}
+          </text>
+        {/each}
 
         <line
           x1={scaleX(1)}
@@ -298,21 +418,45 @@
           <circle
             cx={scaleX(point.x)}
             cy={scaleY(point.y)}
-            r="8"
+            r={hoveredLarge === point ? 11 : 8}
             class="point"
-          >
-            <title>
-              x: {point.x}
-              y: {point.y.toFixed(2)}
-              predicted: {point.predicted.toFixed(2)}
-              residual: {point.residual.toFixed(2)}
-            </title>
-          </circle>
+            role="img"
+            aria-label={`x ${formatValue(point.x)}, observed y ${formatValue(point.y)}, predicted y ${formatValue(point.predicted)}, residual ${formatValue(point.residual)}`}
+            onpointerenter={() => (hoveredLarge = point)}
+            onpointerleave={() => (hoveredLarge = null)}
+          />
         {/each}
 
         <text x={width - 35} y={height - 45} class="axis-label">x</text>
         <text x="30" y="45" class="axis-label">y</text>
       </svg>
+
+      {#if hoveredLarge}
+        <div class="value-tooltip">
+          <strong>Observation values</strong>
+
+          <div>
+            <span>x</span>
+            <b>{formatValue(hoveredLarge.x)}</b>
+          </div>
+
+          <div>
+            <span>Observed y</span>
+            <b>{formatValue(hoveredLarge.y)}</b>
+          </div>
+
+          <div>
+            <span>Predicted y</span>
+            <b>{formatValue(hoveredLarge.predicted)}</b>
+          </div>
+
+          <div>
+            <span>Residual</span>
+            <b>{formatValue(hoveredLarge.residual)}</b>
+          </div>
+        </div>
+      {/if}
+      </div>
     </article>
   </div>
 
@@ -557,4 +701,63 @@
       padding: 16px;
     }
   }
+
+  .chart-shell {
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .grid-line {
+    stroke: #ecebf2;
+    stroke-width: 1;
+  }
+
+  .tick-label {
+    fill: #696574;
+    font-size: 11px;
+    font-weight: 650;
+  }
+
+  .point {
+    transition: r 0.15s ease;
+  }
+
+  .value-tooltip {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 20;
+    width: 215px;
+    padding: 14px;
+    border: 1px solid #d8d7e3;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 14px 32px rgba(25, 24, 50, 0.18);
+    pointer-events: none;
+  }
+
+  .value-tooltip > strong {
+    display: block;
+    margin-bottom: 10px;
+    color: #000080;
+    font-size: 0.78rem;
+  }
+
+  .value-tooltip div {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 7px;
+    font-size: 0.7rem;
+  }
+
+  .value-tooltip span {
+    color: #777382;
+  }
+
+  .value-tooltip b {
+    color: #24212e;
+    text-align: right;
+  }
+
 </style>
