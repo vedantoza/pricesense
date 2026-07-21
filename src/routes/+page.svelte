@@ -1,4 +1,6 @@
 <script lang="ts">
+  import StandardErrorComparison from '$lib/StandardErrorComparison.svelte';
+  import LinearRegressionLab from '$lib/LinearRegressionLab.svelte';
   import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
   import { supabase } from '$lib/supabase';
@@ -25,6 +27,7 @@
   let discount = 0;
   let unitCost = 0;
   let activeSection: 'forecast' | 'scenarios' = 'forecast';
+  let selectedAnalysisModel = '';
   let scenarios: Scenario[] = [];
   let nextId = 1;
 
@@ -135,6 +138,16 @@
       Scenarios <span class="count">{scenarios.length}</span>
     </button>
   </nav>
+  <label class="analysis-model-selector">
+    <span>Model</span>
+
+    <select bind:value={selectedAnalysisModel} aria-label="Select analysis model">
+      <option value="" disabled>Select Model</option>
+      <option value="linear-regression">Linear Regression</option>
+      <option value="standard-error-comparison">Comparing Standard Errors</option>
+    </select>
+  </label>
+
   <button class="logout-button" onclick={logout}>
     Sign out
   </button>
@@ -147,7 +160,12 @@
     <p>Enter your pricing values below.</p>
   </section>
 
-  {#if activeSection === 'forecast'}
+
+  {#if selectedAnalysisModel === 'linear-regression'}
+    <LinearRegressionLab />
+  {:else if selectedAnalysisModel === 'standard-error-comparison'}
+    <StandardErrorComparison />
+  {:else if activeSection === 'forecast'}
     <section class="workspace">
       <article class="panel controls-panel">
         <div class="panel-heading">
@@ -324,6 +342,43 @@
   nav button:hover, nav button.active { color: white; background: rgba(255,255,255,.08); }
   nav button.active::after { content: ''; position: absolute; height: 3px; left: 18px; right: 18px; bottom: 0; background: #FF8D21; border-radius: 3px 3px 0 0; }
   .count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 4px; border-radius: 20px; background: rgba(255,255,255,.15); font-size: .72rem; }
+  .analysis-model-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .analysis-model-selector > span {
+    margin: 0;
+    color: #dedeff;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .analysis-model-selector select {
+    height: 38px;
+    min-width: 165px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    padding: 0 30px 0 11px;
+    outline: none;
+    font-size: 0.76rem;
+    font-weight: 750;
+  }
+
+  .analysis-model-selector select:focus {
+    border-color: #ff8d21;
+    box-shadow: 0 0 0 3px rgba(255, 141, 33, 0.2);
+  }
+
+  .analysis-model-selector option {
+    background: #ffffff;
+    color: #171725;
+  }
+
   .logout-button {
     margin-left: auto;
     border: 1px solid rgba(255, 255, 255, 0.28);
@@ -461,6 +516,16 @@
     .chart-insight { width: 100%; }
   }
   @media (max-width: 700px) {
+    .analysis-model-selector {
+      order: 4;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .analysis-model-selector select {
+      flex: 1;
+    }
+
     .topbar { height: auto; min-height: 66px; padding: 12px 4vw; flex-wrap: wrap; gap: 8px 18px; }
     nav { order: 3; width: 100%; height: 42px; overflow-x: auto; }
     nav button { flex: 1; padding: 0 10px; white-space: nowrap; }
