@@ -1,5 +1,7 @@
 <script lang="ts">
-  import StandardErrorComparison from '$lib/StandardErrorComparison.svelte';
+    
+  import StandardErrorComparison from '$lib/StandardErrorComparison.svelte';import LeastSquaresRegressionLab from '$lib/LeastSquaresRegressionLab.svelte';
+  import DiscountOptimization from '$lib/DiscountOptimization.svelte';
   import LinearRegressionLab from '$lib/LinearRegressionLab.svelte';
   import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
@@ -141,14 +143,27 @@
   <label class="analysis-model-selector">
     <span>Model</span>
 
-    <select bind:value={selectedAnalysisModel} aria-label="Select analysis model">
+    <select
+      bind:value={selectedAnalysisModel}
+      aria-label="Select analysis model"
+    >
       <option value="" disabled>Select Model</option>
-      <option value="linear-regression">Linear Regression</option>
-      <option value="standard-error-comparison">Comparing Standard Errors</option>
+      <option value="linear-regression">
+        Linear Regression
+      </option>
+      <option value="least-squares-regression">
+        Least Squares Regression
+      </option>
+      <option value="standard-error-comparison">
+        Comparing Standard Errors
+      </option>
+      <option value="discount-optimization">
+        Discount Optimization
+      </option>
     </select>
   </label>
 
-  <button class="logout-button" onclick={logout}>
+<button class="logout-button" onclick={logout}>
     Sign out
   </button>
   <span class="status"><span></span> Live model</span>
@@ -159,12 +174,14 @@
     <h1>Pricing Forecast</h1>
     <p>Enter your pricing values below.</p>
   </section>
-
-
   {#if selectedAnalysisModel === 'linear-regression'}
     <LinearRegressionLab />
+  {:else if selectedAnalysisModel === 'least-squares-regression'}
+    <LeastSquaresRegressionLab />
   {:else if selectedAnalysisModel === 'standard-error-comparison'}
     <StandardErrorComparison />
+  {:else if selectedAnalysisModel === 'discount-optimization'}
+    <DiscountOptimization />
   {:else if activeSection === 'forecast'}
     <section class="workspace">
       <article class="panel controls-panel">
@@ -342,12 +359,7 @@
   nav button:hover, nav button.active { color: white; background: rgba(255,255,255,.08); }
   nav button.active::after { content: ''; position: absolute; height: 3px; left: 18px; right: 18px; bottom: 0; background: #FF8D21; border-radius: 3px 3px 0 0; }
   .count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 4px; border-radius: 20px; background: rgba(255,255,255,.15); font-size: .72rem; }
-  .analysis-model-selector {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: auto;
-  }
+
 
   .analysis-model-selector > span {
     margin: 0;
@@ -380,7 +392,7 @@
   }
 
   .logout-button {
-    margin-left: auto;
+    margin-left: 0;
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 9px;
     background: rgba(255, 255, 255, 0.1);
@@ -554,4 +566,68 @@
     .controls-panel, .result-panel, .chart-panel, .full-panel { padding: 18px; }
     footer { width: 94vw; flex-direction: column; gap: 6px; }
   }
+
+  .analysis-model-selector {
+    position: relative;
+    z-index: 100;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 9px;
+    margin-left: auto;
+  }
+
+  .analysis-model-selector > span {
+    display: block;
+    margin: 0;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 750;
+    white-space: nowrap;
+  }
+
+  .analysis-model-selector select {
+    display: block !important;
+    visibility: visible !important;
+    width: 235px;
+    min-width: 235px;
+    height: 40px;
+    border: 2px solid #ff8d21;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #000080;
+    padding: 0 34px 0 12px;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 800;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .analysis-model-selector select:focus {
+    border-color: #ff8d21;
+    box-shadow: 0 0 0 4px rgba(255, 141, 33, 0.22);
+  }
+
+  .analysis-model-selector option {
+    background: #ffffff;
+    color: #171725;
+  }
+
+  @media (max-width: 850px) {
+    .analysis-model-selector {
+      order: 10;
+      width: 100%;
+      margin: 10px 0 0;
+    }
+
+    .analysis-model-selector select {
+      flex: 1;
+      width: auto;
+      min-width: 0;
+    }
+  }
+
 </style>

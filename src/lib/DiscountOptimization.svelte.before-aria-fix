@@ -1151,8 +1151,6 @@
                   )}
                   r={hoveredObservation === observation ? 8 : 5}
                   class="observed-point"
-                  role="img"
-                  aria-label={`Observed order: discount ${observation.discount.toFixed(2)} percent; actual profit ${money(observation.profit)}; predicted profit ${money(observation.predicted)}; residual ${money(observation.profit - observation.predicted)}`}
                   onpointerenter={() =>
                     (hoveredObservation = observation)}
                   onpointerleave={() =>
