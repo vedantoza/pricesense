@@ -21,10 +21,10 @@
   };
 
   let productType: ProductType = 'cosmetics';
-  let listPrice = 74.81;
-  let discount = 6;
-  let unitCost = 47.68;
-  let activeSection: 'forecast' | 'models' | 'scenarios' = 'forecast';
+  let listPrice = 0;
+  let discount = 0;
+  let unitCost = 0;
+  let activeSection: 'forecast' | 'scenarios' = 'forecast';
   let scenarios: Scenario[] = [];
   let nextId = 1;
 
@@ -52,13 +52,13 @@
   $: markerY = 210 - (Math.min(predictedUnits, maxUnits) / maxUnits) * 170;
 
   onMount(() => {
-    const stored = localStorage.getItem('price-regression-scenarios');
+    const stored = localStorage.getItem('dataco-pricing-scenarios-v2');
     if (stored) {
       try {
         scenarios = JSON.parse(stored) as Scenario[];
         nextId = Math.max(0, ...scenarios.map((scenario) => scenario.id)) + 1;
       } catch {
-        localStorage.removeItem('price-regression-scenarios');
+        localStorage.removeItem('dataco-pricing-scenarios-v2');
       }
     }
   });
@@ -76,7 +76,7 @@
   }
 
   function saveScenarios(): void {
-    if (browser) localStorage.setItem('price-regression-scenarios', JSON.stringify(scenarios));
+    if (browser) localStorage.setItem('dataco-pricing-scenarios-v2', JSON.stringify(scenarios));
   }
 
   function addScenario(): void {
@@ -131,7 +131,6 @@
   </a>
   <nav aria-label="Main navigation">
     <button class:active={activeSection === 'forecast'} onclick={() => (activeSection = 'forecast')}>Forecast</button>
-    <button class:active={activeSection === 'models'} onclick={() => (activeSection = 'models')}>Model quality</button>
     <button class:active={activeSection === 'scenarios'} onclick={() => (activeSection = 'scenarios')}>
       Scenarios <span class="count">{scenarios.length}</span>
     </button>
@@ -143,21 +142,9 @@
 </header>
 
 <main>
-  <section class="hero">
-    <div>
-      <span class="eyebrow">PRICE ELASTICITY DECISION PORTAL</span>
-      <h1>Test a future price before you approve it.</h1>
-      <p>
-        Enter a list price, discount, and unit cost. The portal applies your dataset's
-        category-specific linear regression equation and instantly estimates units, revenue,
-        and contribution profit.
-      </p>
-    </div>
-    <div class="hero-stat">
-      <span>Best available model</span>
-      <strong>Cosmetics</strong>
-      <small>R² 59.3% · 26 observations</small>
-    </div>
+  <section class="page-title">
+    <h1>Pricing Forecast</h1>
+    <p>Enter your pricing values below.</p>
   </section>
 
   {#if activeSection === 'forecast'}
@@ -277,50 +264,6 @@
           <line x1={markerX} y1={markerY} x2={markerX} y2="210" class="marker-line" />
           <circle cx={markerX} cy={markerY} r="7" class="marker" />
         </svg>
-        <div class="chart-insight">
-          <span>Model interpretation</span>
-          <strong>{selectedModel.slope < 0 ? 'Demand falls as price rises' : 'Positive price–sales association'}</strong>
-          <p>
-            A $1 price change is associated with
-            <b>{Math.abs(selectedModel.slope).toFixed(2)} units</b>
-            {selectedModel.slope < 0 ? ' in the opposite direction.' : ' in the same direction.'}
-          </p>
-          <small>Association is not automatically causation.</small>
-        </div>
-      </div>
-    </section>
-  {:else if activeSection === 'models'}
-    <section class="panel full-panel">
-      <div class="panel-heading">
-        <div>
-          <span class="step">MODEL AUDIT</span>
-          <h2>Regression quality by category</h2>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Category</th><th>Equation</th><th>R²</th><th>Observations</th><th>Confidence</th><th>Recommended use</th></tr>
-          </thead>
-          <tbody>
-            {#each productTypes as type}
-              {@const model = models[type]}
-              {@const label = confidenceLabel(model.r2)}
-              <tr>
-                <td><strong>{type}</strong></td>
-                <td>Units = {model.intercept.toFixed(2)} {model.slope >= 0 ? '+' : '−'} {Math.abs(model.slope).toFixed(2)} × Price</td>
-                <td><span class="r2">{(model.r2 * 100).toFixed(1)}%</span></td>
-                <td>{model.observations}</td>
-                <td><span class:strong={label === 'Strong'} class:moderate={label === 'Moderate'} class:low={label === 'Low'} class="confidence">{label}</span></td>
-                <td>{label === 'Strong' ? 'Scenario planning and controlled testing' : label === 'Moderate' ? 'Directional scenario planning' : 'Do not use alone for pricing approval'}</td>
-              </tr>
-            {/each}
-          </tbody>
-        </table>
-      </div>
-      <div class="method-note">
-        <strong>Important limitation</strong>
-        <p>The dataset contains one row per SKU rather than repeated price observations over time. The model compares differently priced products; it does not prove how the same SKU will respond after its price changes.</p>
       </div>
     </section>
   {:else}
@@ -366,11 +309,6 @@
   {/if}
 </main>
 
-<footer>
-  <span>DataCo · Simple Linear Regression Demo</span>
-  <span>Built from the supplied 100-SKU dataset</span>
-</footer>
-
 <style>
   :global(*) { box-sizing: border-box; }
   :global(html) { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f7f7fb; color: #191927; }
@@ -406,6 +344,22 @@
   .status span { width: 8px; height: 8px; border-radius: 50%; background: #45e39b; box-shadow: 0 0 0 5px rgba(69,227,155,.15); }
 
   main { width: min(1440px, 92vw); margin: 0 auto; padding: 34px 0 48px; }
+  .page-title {
+    margin-bottom: 24px;
+  }
+
+  .page-title h1 {
+    margin: 0;
+    color: #000080;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: -0.04em;
+  }
+
+  .page-title p {
+    margin: 8px 0 0;
+    color: #696778;
+  }
+
   .hero { display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: end; margin-bottom: 28px; }
   .eyebrow { color: #FF8D21; font-size: .72rem; font-weight: 850; letter-spacing: .14em; }
   h1 { margin: 8px 0 10px; max-width: 760px; font-size: clamp(2rem, 4vw, 3.65rem); line-height: 1.04; letter-spacing: -.045em; }
@@ -465,7 +419,7 @@
 
   .chart-panel { margin-top: 22px; padding: 24px; }
   .chart-note { color: #777386; font-size: .78rem; }
-  .chart-layout { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 24px; align-items: center; }
+  .chart-layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
   svg { width: 100%; max-height: 280px; overflow: visible; }
   svg text { fill: #817d8c; font-size: 10px; }
   .axis { stroke: #c8c6d2; stroke-width: 1.2; }
