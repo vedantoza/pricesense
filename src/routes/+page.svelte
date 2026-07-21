@@ -1,6 +1,7 @@
 <script lang="ts">
     
-  import StandardErrorComparison from '$lib/StandardErrorComparison.svelte';import LeastSquaresRegressionLab from '$lib/LeastSquaresRegressionLab.svelte';
+  import StandardErrorComparison from '$lib/StandardErrorComparison.svelte';
+  import LeastSquaresRegressionLab from '$lib/LeastSquaresRegressionLab.svelte';
   import DiscountOptimization from '$lib/DiscountOptimization.svelte';
   import LinearRegressionLab from '$lib/LinearRegressionLab.svelte';
   import { browser } from '$app/environment';
@@ -360,36 +361,6 @@
   nav button.active::after { content: ''; position: absolute; height: 3px; left: 18px; right: 18px; bottom: 0; background: #FF8D21; border-radius: 3px 3px 0 0; }
   .count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 4px; border-radius: 20px; background: rgba(255,255,255,.15); font-size: .72rem; }
 
-  .analysis-model-selector > span {
-    margin: 0;
-    color: #dedeff;
-    font-size: 0.7rem;
-    font-weight: 700;
-  }
-
-  .analysis-model-selector select {
-    height: 38px;
-    min-width: 165px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    padding: 0 30px 0 11px;
-    outline: none;
-    font-size: 0.76rem;
-    font-weight: 750;
-  }
-
-  .analysis-model-selector select:focus {
-    border-color: #ff8d21;
-    box-shadow: 0 0 0 3px rgba(255, 141, 33, 0.2);
-  }
-
-  .analysis-model-selector option {
-    background: #ffffff;
-    color: #171725;
-  }
-
   .logout-button {
     margin-left: 0;
     border: 1px solid rgba(255, 255, 255, 0.28);
@@ -505,15 +476,6 @@
     .workspace, .chart-layout { grid-template-columns: 1fr; }
   }
   @media (max-width: 700px) {
-    .analysis-model-selector {
-      order: 4;
-      width: 100%;
-      margin-left: 0;
-    }
-
-    .analysis-model-selector select {
-      flex: 1;
-    }
 
     .topbar { height: auto; min-height: 66px; padding: 12px 4vw; flex-wrap: wrap; gap: 8px 18px; }
     nav { order: 3; width: 100%; height: 42px; overflow-x: auto; }
@@ -542,46 +504,49 @@
     .controls-panel, .result-panel, .chart-panel, .full-panel { padding: 18px; }
   }
 
+  @media (max-width: 850px) {
+  }
+
+
   .analysis-model-selector {
     position: relative;
-    z-index: 100;
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    z-index: 1000;
+    display: flex;
+    visibility: visible;
+    opacity: 1;
     flex: 0 0 auto;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
     margin-left: auto;
   }
 
   .analysis-model-selector > span {
     display: block;
-    margin: 0;
     color: #ffffff;
     font-size: 0.72rem;
-    font-weight: 750;
+    font-weight: 800;
     white-space: nowrap;
   }
 
   .analysis-model-selector select {
-    display: block !important;
-    visibility: visible !important;
-    width: 235px;
-    min-width: 235px;
-    height: 40px;
+    display: block;
+    visibility: visible;
+    width: 245px;
+    min-width: 245px;
+    height: 42px;
     border: 2px solid #ff8d21;
     border-radius: 9px;
     background: #ffffff;
     color: #000080;
-    padding: 0 34px 0 12px;
+    padding: 0 36px 0 12px;
     font: inherit;
     font-size: 0.76rem;
     font-weight: 800;
     cursor: pointer;
-    outline: none;
   }
 
   .analysis-model-selector select:focus {
+    outline: none;
     border-color: #ff8d21;
     box-shadow: 0 0 0 4px rgba(255, 141, 33, 0.22);
   }
@@ -593,14 +558,14 @@
 
   @media (max-width: 850px) {
     .analysis-model-selector {
-      order: 10;
+      order: 20;
       width: 100%;
       margin: 10px 0 0;
     }
 
     .analysis-model-selector select {
       flex: 1;
-      width: auto;
+      width: 100%;
       min-width: 0;
     }
   }
