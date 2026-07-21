@@ -1,0 +1,227 @@
+
+> price-elasticity-sveltekit@1.0.0 check
+> svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+
+Loading svelte-check in workspace: /Users/vedantoza/Desktop/price-elasticity-sveltekit
+Getting Svelte diagnostics...
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/lib/DiscountOptimization.svelte:1143:17
+Warn: `<circle>` with a pointerenter or pointerleave handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions (svelte)
+              {#each selectedModel.observations as observation}
+                <circle
+                  cx={scaleX(
+                    observation.discount,
+                    chartBounds
+                  )}
+                  cy={scaleY(
+                    observation.profit,
+                    chartBounds
+                  )}
+                  r={hoveredObservation === observation ? 8 : 5}
+                  class="observed-point"
+                  onpointerenter={() =>
+                    (hoveredObservation = observation)}
+                  onpointerleave={() =>
+                    (hoveredObservation = null)}
+                />
+              {/each}
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/lib/LeastSquaresRegressionLab.svelte:404:15
+Warn: `<circle>` with a pointerenter or pointerleave handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions (svelte)
+
+              <circle
+                cx={scaleX(point.x)}
+                cy={scaleY(point.y)}
+                r={hoveredPoint?.id === point.id ? 9 : 6}
+                class="observed-point"
+                onpointerenter={() => (hoveredPoint = point)}
+                onpointerleave={() => (hoveredPoint = null)}
+              />
+            {/each}
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/lib/LinearRegressionLab.svelte:510:15
+Warn: `<circle>` with a pointerenter, pointermove or pointerleave handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions (svelte)
+            {#each points as point}
+              <circle
+                cx={scaleX(point.x)}
+                cy={scaleY(point.y)}
+                r={hoveredPoint?.id === point.id
+                  ? point.outlier
+                    ? 11
+                    : 9
+                  : point.outlier
+                    ? 7
+                    : 5}
+                class={point.outlier
+                  ? 'scatter-point outlier-point'
+                  : 'scatter-point'}
+                onpointerenter={(event) =>
+                  showPoint(point, event)}
+                onpointermove={movePointTooltip}
+                onpointerleave={hidePoint}
+              />
+            {/each}
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:430:3
+Warn: Unused CSS selector ".hero"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: end; margin-bottom: 28px; }
+  .eyebrow { color: #FF8D21; font-size: .72rem; font-weight: 850; letter-spacing: .14em; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:431:3
+Warn: Unused CSS selector ".eyebrow"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: end; margin-bottom: 28px; }
+  .eyebrow { color: #FF8D21; font-size: .72rem; font-weight: 850; letter-spacing: .14em; }
+  h1 { margin: 8px 0 10px; max-width: 760px; font-size: clamp(2rem, 4vw, 3.65rem); line-height: 1.04; letter-spacing: -.045em; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:433:3
+Warn: Unused CSS selector ".hero p"
+https://svelte.dev/e/css_unused_selector (svelte)
+  h1 { margin: 8px 0 10px; max-width: 760px; font-size: clamp(2rem, 4vw, 3.65rem); line-height: 1.04; letter-spacing: -.045em; }
+  .hero p { max-width: 850px; margin: 0; color: #666577; line-height: 1.65; font-size: 1rem; }
+  .hero-stat { width: 245px; padding: 19px 21px; border-radius: 18px; background: linear-gradient(145deg, #000080, #FF8D21); color: white; box-shadow: 0 18px 45px rgba(0,0,80,.18); }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:434:3
+Warn: Unused CSS selector ".hero-stat"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .hero p { max-width: 850px; margin: 0; color: #666577; line-height: 1.65; font-size: 1rem; }
+  .hero-stat { width: 245px; padding: 19px 21px; border-radius: 18px; background: linear-gradient(145deg, #000080, #FF8D21); color: white; box-shadow: 0 18px 45px rgba(0,0,80,.18); }
+  .hero-stat span, .hero-stat small { display: block; color: #FFF0DD; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:435:3
+Warn: Unused CSS selector ".hero-stat span"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .hero-stat { width: 245px; padding: 19px 21px; border-radius: 18px; background: linear-gradient(145deg, #000080, #FF8D21); color: white; box-shadow: 0 18px 45px rgba(0,0,80,.18); }
+  .hero-stat span, .hero-stat small { display: block; color: #FFF0DD; }
+  .hero-stat span { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:435:20
+Warn: Unused CSS selector ".hero-stat small"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .hero-stat { width: 245px; padding: 19px 21px; border-radius: 18px; background: linear-gradient(145deg, #000080, #FF8D21); color: white; box-shadow: 0 18px 45px rgba(0,0,80,.18); }
+  .hero-stat span, .hero-stat small { display: block; color: #FFF0DD; }
+  .hero-stat span { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:436:3
+Warn: Unused CSS selector ".hero-stat span"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .hero-stat span, .hero-stat small { display: block; color: #FFF0DD; }
+  .hero-stat span { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; }
+  .hero-stat strong { display: block; margin: 8px 0 4px; font-size: 1.45rem; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:437:3
+Warn: Unused CSS selector ".hero-stat strong"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .hero-stat span { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; }
+  .hero-stat strong { display: block; margin: 8px 0 4px; font-size: 1.45rem; }
+  .hero-stat small { font-size: .78rem; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:438:3
+Warn: Unused CSS selector ".hero-stat small"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .hero-stat strong { display: block; margin: 8px 0 4px; font-size: 1.45rem; }
+  .hero-stat small { font-size: .78rem; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:497:3
+Warn: Unused CSS selector ".chart-insight"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .marker { fill: #FF8D21; stroke: white; stroke-width: 4; }
+  .chart-insight { padding: 20px; border-radius: 16px; background: #08085e; color: white; }
+  .chart-insight span { color: #D6D6FF; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:498:3
+Warn: Unused CSS selector ".chart-insight span"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .chart-insight { padding: 20px; border-radius: 16px; background: #08085e; color: white; }
+  .chart-insight span { color: #D6D6FF; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
+  .chart-insight strong { display: block; margin: 9px 0; font-size: 1.15rem; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:499:3
+Warn: Unused CSS selector ".chart-insight strong"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .chart-insight span { color: #D6D6FF; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
+  .chart-insight strong { display: block; margin: 9px 0; font-size: 1.15rem; }
+  .chart-insight p { color: #F0F0FF; font-size: .79rem; line-height: 1.55; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:500:3
+Warn: Unused CSS selector ".chart-insight p"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .chart-insight strong { display: block; margin: 9px 0; font-size: 1.15rem; }
+  .chart-insight p { color: #F0F0FF; font-size: .79rem; line-height: 1.55; }
+  .chart-insight small { display: block; margin-top: 18px; color: #C7C7E8; font-size: .68rem; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:501:3
+Warn: Unused CSS selector ".chart-insight small"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .chart-insight p { color: #F0F0FF; font-size: .79rem; line-height: 1.55; }
+  .chart-insight small { display: block; margin-top: 18px; color: #C7C7E8; font-size: .68rem; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:511:3
+Warn: Unused CSS selector ".r2"
+https://svelte.dev/e/css_unused_selector (svelte)
+  tr:hover td { background: #fcfbff; }
+  .r2 { font-weight: 850; color: #000080; }
+  .method-note { margin-top: 20px; padding: 18px; border-left: 4px solid #FF8D21; background: #FFF8EF; border-radius: 4px 13px 13px 4px; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:512:3
+Warn: Unused CSS selector ".method-note"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .r2 { font-weight: 850; color: #000080; }
+  .method-note { margin-top: 20px; padding: 18px; border-left: 4px solid #FF8D21; background: #FFF8EF; border-radius: 4px 13px 13px 4px; }
+  .method-note strong { color: #C65F00; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:513:3
+Warn: Unused CSS selector ".method-note strong"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .method-note { margin-top: 20px; padding: 18px; border-left: 4px solid #FF8D21; background: #FFF8EF; border-radius: 4px 13px 13px 4px; }
+  .method-note strong { color: #C65F00; }
+  .method-note p { margin: 6px 0 0; color: #625c69; font-size: .82rem; line-height: 1.55; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:514:3
+Warn: Unused CSS selector ".method-note p"
+https://svelte.dev/e/css_unused_selector (svelte)
+  .method-note strong { color: #C65F00; }
+  .method-note p { margin: 6px 0 0; color: #625c69; font-size: .82rem; line-height: 1.55; }
+  .actions { white-space: nowrap; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:523:3
+Warn: Unused CSS selector "footer"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+  footer { width: min(1440px, 92vw); margin: 0 auto; padding: 22px 0 32px; display: flex; justify-content: space-between; color: #888493; font-size: .72rem; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:527:5
+Warn: Unused CSS selector ".hero-stat"
+https://svelte.dev/e/css_unused_selector (svelte)
+    .workspace, .chart-layout { grid-template-columns: 1fr; }
+    .hero-stat { display: none; }
+    .chart-insight { width: 100%; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:528:5
+Warn: Unused CSS selector ".chart-insight"
+https://svelte.dev/e/css_unused_selector (svelte)
+    .hero-stat { display: none; }
+    .chart-insight { width: 100%; }
+  }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:562:5
+Warn: Unused CSS selector ".hero"
+https://svelte.dev/e/css_unused_selector (svelte)
+    main { width: 94vw; padding-top: 24px; }
+    .hero { grid-template-columns: 1fr; }
+    .form-grid, .kpi-grid { grid-template-columns: 1fr; }
+
+/Users/vedantoza/Desktop/price-elasticity-sveltekit/src/routes/+page.svelte:567:5
+Warn: Unused CSS selector "footer"
+https://svelte.dev/e/css_unused_selector (svelte)
+    .controls-panel, .result-panel, .chart-panel, .full-panel { padding: 18px; }
+    footer { width: 94vw; flex-direction: column; gap: 6px; }
+  }
+
+====================================
+svelte-check found 0 errors and 26 warnings in 4 files
