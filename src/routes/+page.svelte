@@ -121,13 +121,13 @@
 </script>
 
 <svelte:head>
-  <title>PriceSense | Regression Forecasting</title>
+  <title>DataCo | Regression Forecasting</title>
 </svelte:head>
 
 <header class="topbar">
-  <a class="brand" href="./" aria-label="PriceSense home">
+  <a class="brand" href="./" aria-label="DataCo home">
     <span class="brand-mark">↗</span>
-    <span>PriceSense</span>
+    <span>DataCo</span>
   </a>
   <nav aria-label="Main navigation">
     <button class:active={activeSection === 'forecast'} onclick={() => (activeSection = 'forecast')}>Forecast</button>
@@ -367,7 +367,7 @@
 </main>
 
 <footer>
-  <span>PriceSense · Simple Linear Regression Demo</span>
+  <span>DataCo · Simple Linear Regression Demo</span>
   <span>Built from the supplied 100-SKU dataset</span>
 </footer>
 

@@ -45,10 +45,10 @@
 </script>
 
 <svelte:head>
-  <title>Sign in | PriceSens</title>
+  <title>Sign in | DataCo</title>
   <meta
     name="description"
-    content="Secure access to the PriceSens forecasting portal"
+    content="Secure access to the DataCo forecasting portal"
   />
 </svelte:head>
 
@@ -58,7 +58,7 @@
       <span class="brand-icon">↗</span>
 
       <div>
-        <strong>PriceSens</strong>
+        <strong>DataCo</strong>
         <small>Price intelligence portal</small>
       </div>
     </div>
@@ -105,7 +105,7 @@
         {/if}
 
         <button type="submit" disabled={loading}>
-          {loading ? 'Signing in…' : 'Sign in to PriceSens'}
+          {loading ? 'Signing in…' : 'Sign in to DataCo'}
         </button>
       </form>
 

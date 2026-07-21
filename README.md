@@ -1,4 +1,4 @@
-# PriceSense — SvelteKit Regression Portal
+# DataCo — SvelteKit Regression Portal
 
 A working SvelteKit + TypeScript frontend based on the supplied 100-SKU fashion supply-chain dataset.
 
